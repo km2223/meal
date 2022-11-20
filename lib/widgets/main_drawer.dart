@@ -29,7 +29,7 @@ Widget buildListTile(String title,IconData icon,Function tabhandler){
           padding: EdgeInsets.all(20),
           alignment: Alignment.centerLeft,
           color: Theme.of(context).colorScheme.secondary,
-          child: Text("data",
+          child: Text("Cooking Up!",
           style:TextStyle(
             fontWeight:FontWeight.w900,
             fontSize: 30,
@@ -42,13 +42,13 @@ Widget buildListTile(String title,IconData icon,Function tabhandler){
         buildListTile('meal', 
         Icons.settings,
         (){
-          Navigator.of(context).pushNamed('/');
+          Navigator.of(context).pushReplacementNamed('/');
         }
         ),
         buildListTile('filter',
          Icons.restaurant,
          (){
-          Navigator.of(context).pushNamed(FilterScreen.routeName);
+          Navigator.of(context).pushReplacementNamed(FilterScreen.routeName);
 
          }
          )
