@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/categories_screen.dart';
+import 'package:flutter_complete_guide/screens/categories_screen.dart';
+import 'package:flutter_complete_guide/screens/caregory_meal_screen.dart';
+import 'package:flutter_complete_guide/screens/meal_detail_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,8 +11,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'DeliMeals',
       theme: ThemeData(
-        primarySwatch: Colors.pink,
-        accentColor: Colors.amber,
         canvasColor: Color.fromRGBO(255, 254, 255, 1),
         fontFamily: 'Ralway',
         textTheme: ThemeData.light().textTheme.copyWith(
@@ -23,9 +23,21 @@ class MyApp extends StatelessWidget {
              fontFamily: 'RobotoCondensed'
 
           )
-        )
+        ), colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink).copyWith(secondary: Colors.amber)
       ),
-      home: CategoriesScreen(),
+    // home: CategoriesScreen(),
+ initialRoute: '/', // default is '/'
+      routes: {
+        '/': (ctx) => CategoriesScreen(),
+        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
+        MealDetailScreen.routeName:(ctx) => MealDetailScreen(),
+      },
+      onGenerateRoute: (settings) {
+      },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(builder: (context) => CategoriesScreen(),);
+        
+      },
     );
   }
 }
