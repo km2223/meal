@@ -29,7 +29,7 @@ Widget buildContainer(Widget child){
   @override
   Widget build(BuildContext context) {
 final mealId=ModalRoute.of(context).settings.arguments as String;
-final selectMeal=DUMMY_MEALS.firstWhere((element) => element.id==mealId);
+final selectMeal=DUMMY_MEALS.firstWhere((meal) => meal.id==mealId);
 
 
     return Scaffold(
@@ -77,7 +77,14 @@ final selectMeal=DUMMY_MEALS.firstWhere((element) => element.id==mealId);
             
           ],
         ),
-      )
+      ),
+      floatingActionButton:FloatingActionButton(
+        child: Icon(
+          Icons.delete),
+          onPressed: (() {
+            Navigator.of(context).pop(mealId);
+          }),
+          ),
     );
    
   }
