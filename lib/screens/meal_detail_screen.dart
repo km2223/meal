@@ -4,6 +4,10 @@ import 'package:flutter_complete_guide/dummu_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
 static const routeName='/meal-detail';
+final Function toggleFavorite;
+final Function _IsFavorite;
+
+MealDetailScreen(this.toggleFavorite,this._IsFavorite);
 Widget buildSectionTitle(BuildContext context,String text){
            return Container(
             margin: EdgeInsets.symmetric(vertical: 10),
@@ -80,10 +84,9 @@ final selectMeal=DUMMY_MEALS.firstWhere((meal) => meal.id==mealId);
       ),
       floatingActionButton:FloatingActionButton(
         child: Icon(
-          Icons.delete),
-          onPressed: (() {
-            Navigator.of(context).pop(mealId);
-          }),
+          _IsFavorite(mealId) ? Icons.star:Icons.star_border
+          ),
+          onPressed:(() => toggleFavorite(mealId)) 
           ),
     );
    
