@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/dummu_data.dart';
+import 'package:flutter_complete_guide/models/meal.dart';
 import 'package:flutter_complete_guide/screens/categories_screen.dart';
 import 'package:flutter_complete_guide/screens/caregory_meal_screen.dart';
 import 'package:flutter_complete_guide/screens/fliter_screen.dart';
@@ -7,7 +9,45 @@ import 'package:flutter_complete_guide/screens/tabs_screen.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Map<String,bool>_filters={
+    'gluten':false,
+    'lactose':false,
+    'vegan':false,
+    'vegetarian':false,
+  };
+  List<Meal>_availableMeal=DUMMY_MEALS;
+void _setFliterData(Map<String,bool>_FilterData){
+  setState(() {
+    _filters=_FilterData;
+    _availableMeal=DUMMY_MEALS.where((meal) {
+      if (_filters['gluten']&&!meal.isGlutenFree) {
+        return false;
+      }
+      if (_filters['lactose']&&!meal.isLactoseFree) {
+        return false;
+      }
+      if (_filters['vegan']&&!meal.isVegan) {
+        return false;
+      }
+       if (_filters['vegetarian']&&!meal.isVegetarian) {
+        return false;
+      }
+      return true;
+
+
+
+
+    }
+    ).toList();
+  });
+
+}
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,9 +71,9 @@ class MyApp extends StatelessWidget {
  initialRoute: '/', // default is '/'
       routes: {
         '/': (ctx) => TabsScreen(),
-        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
+        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(_availableMeal),
         MealDetailScreen.routeName:(ctx) => MealDetailScreen(),
-        FilterScreen.routeName:(ctx) => FilterScreen()
+        FilterScreen.routeName:(ctx) => FilterScreen(_filters,_setFliterData)
       },
 
       onUnknownRoute: (settings) {

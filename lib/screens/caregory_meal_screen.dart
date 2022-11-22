@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/dummu_data.dart';
 import 'package:flutter_complete_guide/models/meal.dart';
 import 'package:flutter_complete_guide/widgets/meal_item.dart';
 
@@ -11,6 +10,8 @@ class CategoryMealsScreen extends StatefulWidget {
   final String categoryTitle;
   CategoryMealsScreen(this.categoryId,this.categoryTitle); */
   static const routeName='/categories-meals';
+  List<Meal>_availableMeal;
+  CategoryMealsScreen(this._availableMeal);
 
 
   @override
@@ -38,7 +39,7 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
           final routArgs=ModalRoute.of(context).settings.arguments as Map<String,String>;
      categoryTitle=routArgs['title'];
     final categoryId=routArgs['id'];
-     _displayMeals=DUMMY_MEALS.where(((meal) {
+     _displayMeals=widget._availableMeal.where(((meal) {
       return meal.categories.contains(categoryId);
       
     })).toList();
