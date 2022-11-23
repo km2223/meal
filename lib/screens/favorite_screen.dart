@@ -15,7 +15,7 @@ class FavoriteScreen extends StatelessWidget {
       
     }
     else{
-      ListView.builder(itemBuilder: ((context, index) {
+     return ListView.builder(itemBuilder: ((context, index) {
         return  MealItem(
            id :favoriteMeal[index].id,
            title:favoriteMeal[index].title,
